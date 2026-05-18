@@ -1,0 +1,35 @@
+<div class="home-container">
+
+  <div class="panel add-panel">
+    <div class="panel-header">Add a life goal</div>
+    <div class="panel-body">
+      <p>Use this form below to add a new life goal</p>
+      <input
+        type="text"
+        [(ngModel)]="newMeta"
+        placeholder="Enter your goal..."
+        class="input-meta"
+        (keyup.enter)="addMeta()"
+      />
+      <br />
+      <button class="btn-add" (click)="addMeta()" [disabled]="loading">
+        {{ loading ? 'adding...' : 'add an item' }}
+      </button>
+      <p *ngIf="error" class="error-msg">{{ error }}</p>
+    </div>
+  </div>
+
+  <div class="panel list-panel">
+    <div class="panel-header">Your goal list ({{ metas.length }})</div>
+    <div class="panel-body">
+      <div *ngIf="metas.length === 0" class="empty-msg">
+        No goals yet. Add one!
+      </div>
+      <div *ngFor="let item of metas" class="meta-item">
+        <button class="btn-delete" (click)="deleteMeta(item.id)">delete</button>
+        <span class="meta-text">{{ item.meta }}</span>
+      </div>
+    </div>
+  </div>
+
+</div>

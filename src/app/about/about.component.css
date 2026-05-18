@@ -1,0 +1,24 @@
+.about-container {
+  background-color: #29abe2;
+  min-height: calc(100vh - 56px);
+  display: flex;
+  align-items: flex-start;
+  padding: 40px 24px;
+}
+
+.contact-card {
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.contact-card h2 {
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+
+.contact-card p {
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin: 4px 0;
+}
