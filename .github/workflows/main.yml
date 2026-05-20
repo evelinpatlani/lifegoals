@@ -2,9 +2,12 @@ name: Lifegoals_DockerImage
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   angular_deploy:
@@ -21,6 +24,25 @@ jobs:
       - name: npm install
         run: npm ci
 
+      # Crear environment.ts dinámicamente
+      - name: Create environment.ts
+        run: |
+          mkdir -p src/environments
+
+          cat > src/environments/environment.ts <<EOF
+          export const environment = {
+            production: true,
+            firebase: {
+              apiKey: '${{ secrets.apiKey }}',
+              authDomain: '${{ secrets.authDomain }}',
+              projectId: '${{ secrets.projectId }}',
+              storageBucket: '${{ secrets.storageBucket }}',
+              messagingSenderId: '${{ secrets.messagingSenderId }}',
+              appId: '${{ secrets.appId }}'
+            }
+          };
+          EOF
+
       - name: build
         run: npm run build -- --configuration=production
 
@@ -36,4 +58,5 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/lifegoals:latest
-        
+
+          
