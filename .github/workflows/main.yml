@@ -28,7 +28,6 @@ jobs:
       - name: Create environment.ts
         run: |
           mkdir -p src/environments
-
           cat > src/environments/environment.ts <<EOF
           export const environment = {
             production: true,
@@ -58,4 +57,8 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/lifegoals:latest
-          
+
+      # Trigger deploy en Render
+      - name: Trigger Render Deploy
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
